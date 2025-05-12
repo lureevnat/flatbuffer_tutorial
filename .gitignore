@@ -1,0 +1,21 @@
+# cpp generated file
+model_dvm_generated.h
+
+# c generated file
+flatbuffers_common_builder.h
+flatbuffers_common_reader.h
+model_dvm_builder.h
+model_dvm_reader.h
+model_dvm_verifier.h
+
+# executables
+a.out
+consumer
+producer
+consumerc
+producerc
+consumercc
+producercc
+*.bin
+*.dvm
+*.i

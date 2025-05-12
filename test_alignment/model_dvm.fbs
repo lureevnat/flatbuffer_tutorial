@@ -1,0 +1,16 @@
+namespace ARA2_Model;
+
+struct align8 (force_align: 8) {
+  x: byte;
+}
+struct align16 (force_align: 16) {
+  x: byte;
+}
+struct align32 (force_align: 32) {
+  x: byte;
+}
+table Model{
+    a:align8;
+    b:align16;
+    c:align32;
+}root_type Model;

@@ -1,0 +1,16 @@
+namespace Tanveer_Model;
+table ScalarTable{
+    ibyte: byte;
+    ibool: bool;
+}
+struct ScalarStruct{
+    ibyte: byte;
+    ibool: bool;
+}
+
+table AllTable{
+    iScalarTable: ScalarTable;
+    iScalarStruct: ScalarStruct;
+}
+root_type AllTable;
+

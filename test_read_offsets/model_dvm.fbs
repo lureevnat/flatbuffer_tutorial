@@ -1,0 +1,156 @@
+namespace ARA2_Model;
+
+enum ARAnet_locality:byte{
+  L2_=0,
+  SCRATCH_,
+  DDR_,
+  DDR_IN_,
+  WEIGHT,
+  DDR_KEY_IN_,
+  DDR_VALUE_IN_,
+  DDR_KEY_OUT_,
+  DDR_VALUE_OUT_,
+  DDR_ROPE_IN_,
+  DDR_KEY_IN_SCALE_,
+  DDR_VALUE_IN_SCALE_,
+  DDR_KEY_OUT_SCALE_,
+  DDR_VALUE_OUT_SCALE_,
+  DDR_REQUANT_IN_,
+  DDR_REQUANT_IN_SCALE_,
+  DDR_INPUT_SCALE_,
+  DDR_OUTPUT_SCALE_
+}
+
+// layer offsets
+table LayerMeta{
+  ddr_layerID:int;
+  blobID:int;
+  offset:int;
+  is_float_output_layer:int;
+  is_dim_different:int;
+  size:int;
+  outDims:[int];
+  out_ddrDims:[int];
+  is_fraction:int;
+  is_out_signed:int;
+  ARAnet_locality:ARAnet_locality;
+  outPrec:int;
+  outScale:float;
+  scaledoffset8bit:int;
+  noofscale:int;
+  batchID:int;
+  caffeName:string;
+  topblobName:string;
+}
+
+table inputLayerMeta{
+  qn:float;
+  aspect_resize:float;
+  aspect_resize_scale:float;
+  bgr2rgb:int;
+  blob_id:int;
+  layer_name:string;
+  blob_name:string;
+  bpp:int;
+  center_crop:int;
+  interpolation:int;
+  isSigned:int;
+  layer_id:int;
+  layer_type:string;
+  layout:string;
+  mean:[float];
+  mirror:int;
+  name:string;
+  outputScale:int;
+  outputOffset:int;
+  qmode:int;
+  scale:[float] ;
+  size:[int];
+  width:int;
+  height:int;
+  depth:int;
+  nch:int;
+  batch_size:int;
+  num:int;
+  type:string;
+}
+
+table outputLayerMeta{
+  blob_id:int;
+  blob_name:string;
+  bpp:int;
+  layer_id:int;
+  layer_name:string;
+  fused_parent_id:int;
+  fused_parent_name:string;
+  fused_parent_type:string;
+  isOutputFloat:int;
+  isSigned:int;
+  isStructFormat:int;
+  layer_output_type:string;
+  layout:string;
+  max_dynamic_id:int;
+  maxBatchSize:int;
+  num_classes:int;
+  offset:int;
+  outputQn:float;
+  outputScale:int;
+  width:int;
+  height:int;
+  depth:int;
+  nch:int;
+  num:int;
+  output_buffer_size:int;
+  size:[int];
+  type:string;
+}
+
+table Meta{
+  layer_meta:[LayerMeta]; 
+  inputs_list:[inputLayerMeta];
+  outputs_list:[outputLayerMeta];
+  num_inputs:int;
+  num_outputs:int;
+  network_type:string;
+  total_input_size:int;
+  total_output_size:int;
+  scratch_size:int;
+}
+
+table Version{
+  major:uint8;
+  minor:uint8;
+  patch:uint8;
+  patch_minor:uint8;
+}
+
+table Stream{
+    bitstream:[uint8];
+}
+
+union Metadata{
+  Meta
+}
+
+union File{
+  Stream
+}
+
+table Model{
+    nnp_kernel_lib:File;
+    params:File;
+    vpu_params:File;
+    vpu_kernel_lib:File;
+    mcp_kernel_lib:File;
+    rearranged_weights:File;
+    qpcmds:File;
+    model_name:string;
+    compiler_commit:string;
+    meta:Metadata;
+    version:Version;
+    encryption:bool;
+    crc32: uint32;
+}
+
+root_type Model;
+
