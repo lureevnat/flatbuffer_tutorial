@@ -119,11 +119,11 @@ int main(){
         }
 
         ns(Monster_table_t) monster = ns(Monster_as_root(buffer));
-        uint16_t hp1 = ns(Monster_hp(monster));
-        uint16_t mana1 = ns(Monster_mana(monster));
+        uint16_t hp = ns(Monster_hp(monster));
+        uint16_t mana = ns(Monster_mana(monster));
         flatbuffers_string_t name = ns(Monster_name(monster));
-        printf("hp = %x %d\n",hp1, hp1);
-        printf("mana = %x %d\n",mana1, mana1);
+        printf("hp = %x %d\n",hp, hp);
+        printf("mana = %x %d\n",mana, mana);
         printf("name = %s\n",name);
 
     }

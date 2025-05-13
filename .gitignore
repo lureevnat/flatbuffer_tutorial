@@ -19,3 +19,4 @@ producercc
 *.bin
 *.dvm
 *.i
+generated/
